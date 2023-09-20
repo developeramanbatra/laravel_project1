@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\student1;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//this can't be used for crud ...only for front-end view page 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//Use this type route only
+Route::resource('first',student1::class);
