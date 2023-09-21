@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\student1;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,5 @@ Route::get('/', function () {
 
 //Use this type route only
 Route::resource('first',student1::class);
+
+Route::resource('studentroute',StudentController::class);
