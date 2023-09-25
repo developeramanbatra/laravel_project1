@@ -24,8 +24,9 @@
                     <th>Roll No</th>
                     <th>Contact</th>
                     <th>Email</th>
+                    <th>Actions</th>
                 </tr>
-                @foreach($student_data as $data)
+                @foreach($student as $data)
                 <tr>
                     <th>{{$loop->iteration}}</th>
                     <td>{{$data->firstname}}</td>
@@ -33,10 +34,28 @@
                     <td>{{$data->rollno}}</td>
                     <td>{{$data->contact}}</td>
                     <td>{{$data->email}}</td>
+                    <td>
+                      <a href="{{ route('studentroute.show',$data->id) }}">
+                        <button class="btn btn-info">Show Details</button>
+                      </a>
+                      <a href="{{ route('studentroute.edit',$data->id) }}">
+                        <button class="btn btn-info">Edit</button>
+                      </a>
+                      <!-- <a href="{{ route('studentroute.destroy',$data->id) }}"> -->
+                        <!-- anchor tag can't be used in delete in laravel -->
+                      <form method="post" action="{{ route('studentroute.destroy',$data->id) }}">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger">Delete</button>
+                      </form>
+                      <!-- </a> -->
+                    </td>
                 </tr>
                 @endforeach
         </table>
     </div>
+
+    {{$student->links()}}     <!-- This is for pagination previous next button Links Or Buttons  -->
     
 
   <!-- Bootstrap JavaScript Libraries -->

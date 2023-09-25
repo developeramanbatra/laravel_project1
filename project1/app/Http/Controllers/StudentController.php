@@ -16,8 +16,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $student_data = Student::get();
-        return view('student.index',compact('student_data'));
+        // $student = Student::get();
+        $student = Student::paginate(1);
+        return view('student.index',compact('student'));
     }
 
     /**
@@ -58,7 +59,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student= Student::findorfail($id);
+        return view('student.show',compact('student'));
     }
 
     /**
@@ -69,7 +71,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student=Student::findorfail($id);
+        return view('student.edit',compact('student'));
     }
 
     /**
@@ -81,7 +84,42 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // method 1 
+        // $student = Student::findorfail($id);
+        // $student->firstname = $request->firstname;
+        // $student->lastname = $request->lastname;
+        // $student->rollno = $request->rollno;
+        // $student->contact = $request->contact;
+        // $student->email = $request->email;
+        // $student->save();
+
+        // method 2 
+
+        // $studentdata=Student::where('id',$id)->where('email',$email)->update([]);        //for more than two conditions with AND operator
+        // $studentdata=Student::where('id',$id)->orWhere('email',$email)->update([]);      //for more than two conditions with OR operator
+
+        $studentdata = Student::where('id',$id)->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'rollno' => $request->rollno,
+            'contact' => $request->contact,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->route('studentroute.index')->with('success','Record Updated');
+
+        // return view('student.index');          //without msg
+
+
+        //used rarely with condition
+        // if($studentdata == 1)
+        // {
+        //     return redirect()->route('studentroute.index')->with('success','Record Updated');
+        // }
+        // else{
+        //     return redirect()->route('studentroute.index')->with('error','Try again');
+        // }
+
     }
 
     /**
@@ -92,6 +130,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student=Student::findorfail($id);
+        $student->delete();
+        return back()->with('success','Record Deleted');
     }
 }
