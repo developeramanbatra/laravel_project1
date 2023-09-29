@@ -14,8 +14,10 @@
 </head>
 
 <body>
-
     <div class="table-responsive container">
+          @if(Session::get('success'))
+            <div class="alert alert-success"> {{ Session::get('success') }}  </div>
+          @endif
         <table class="table table-secondary">
                 <tr>
                     <th>#</th>
@@ -23,7 +25,7 @@
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <!-- <th>Actions</th> -->
+                    <th>Actions</th>
                 </tr>
                 @foreach($productdata as $data)
                 <tr>
@@ -32,8 +34,7 @@
                     <td>{{$data->product_name}}</td>
                     <td>{{$data->price}}</td>
                     <td>{{$data->quantity}}</td>
-                    <!-- <td><img src="{{ asset('/companylogo/'.$data->company_logo) }}" class="img-fluid w-25 mx-auto d-block"></td> -->
-                    <!-- <td>
+                    <td>
                       <a href="{{ route('productroute.show',$data->id) }}">
                         <button class="btn btn-info">Show Details</button>
                       </a>
@@ -45,7 +46,7 @@
                         @method('delete')
                         <button class="btn btn-danger">Delete</button>
                       </form>
-                    </td> -->
+                    </td>
                 </tr>
                 @endforeach
         </table>

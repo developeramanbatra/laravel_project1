@@ -14,8 +14,10 @@
 </head>
 
 <body>
-
-    <div class="table-responsive container">
+  <div class="table-responsive container">
+      @if(Session::get('success'))
+        <div class="alert alert-success"> {{ Session::get('success') }}  </div>
+      @endif
         <table class="table table-secondary">
                 <tr>
                     <th>#</th>

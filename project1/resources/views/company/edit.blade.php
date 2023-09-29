@@ -22,15 +22,16 @@
             <div class="alert alert-success"> {{ Session::get('success') }}  </div>
           @endif
             <h1 class="text-center display-1">Register</h1>
-            <form method='post' action="{{ route('companyroute.store')  }}" enctype="multipart/form-data">
+            <form method='post' action="{{ route('companyroute.update',$companydata->id)  }}" enctype="multipart/form-data">     <!-- line (route) In update diff from index form -->
               @csrf
+              @method('patch')              <!-- line In update diff from index form -->
               <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Company Name</label>
-                  <input type="text" name='company_name' class="form-control" aria-describedby="emailHelp" required>
+                  <input type="text" name='company_name' class="form-control" aria-describedby="emailHelp" value="{{  $companydata->company_name  }}" required>
               </div>
               <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Company Logo</label>
-                  <input type="file" name='company_logo' class="form-control" aria-describedby="emailHelp" required>
+                  <input type="file" name='company_logo' class="form-control" aria-describedby="emailHelp" >        <!-- In Laravel old image is automatically selected if the new is not choosen -->
               </div>
             
               <button type="submit" class="btn btn-primary">Submit</button>
