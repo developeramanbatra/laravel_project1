@@ -39,6 +39,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        //validation on backend...now, NO more required is needed in html input tags
+        //this also returns array of errors back to create blade...printed by foreach loop
+        $request->validate([
+            'firstname'=> 'required',
+            'rollno'=> 'required',
+            'contact'=> 'required|min:10|max:10',//...min & max validation
+            'email'=> 'required',
+            'password'=> 'required',
+        ]);
         Student::create([
             'firstname'=>$request->firstname,
             'lastname'=> $request->lastname ,

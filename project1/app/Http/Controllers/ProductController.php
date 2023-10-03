@@ -91,4 +91,10 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function getproduct($id)
+    {
+        $product = Product::where('companyId',$id)->get();
+        return json_encode($product);
+    }
 }

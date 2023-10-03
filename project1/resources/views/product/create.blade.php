@@ -52,6 +52,59 @@
     </div>
 </div>
 
+      <!-- AJAX Method for choosing Product after selecting brand or company or category   -->
+
+  <div class="container">
+    <div class="row justify-content-center align-items-center g-2">
+      <div class="col-6">
+              <label for="exampleInputEmail1" class="form-label">Company Name</label>
+              <select name="company_id" id="company_id" class="form-control" required>
+                <option selected disabled value="">Choose Company</option>
+                @foreach($companydata as $item)
+                  <option value="{{ $item->id }}">{{ $item->company_name }} </option>
+
+                @endforeach
+              </select>
+      </div>
+      <div class="col-6">
+          <label for="exampleInputEmail1" class="form-label">Choose Product</label>
+          <select name='products' id='products' class="form-control" aria-describedby="emailHelp" required>
+
+        </select>
+      </div>
+    </div>
+  </div>
+  <!-- eh script file kithe available hundi aa//......CDN of Jquery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#company_id').on('change', function() {
+            var id = $(this).val();
+            // alert(id)
+            if(id) {
+                $.ajax({
+                    url: '../getproducts/'+id,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        console.log(data)
+                        $('#products').empty();
+                        $('#products').append('<option>Select Product</option>');
+                        $.each(data, function(i, e){
+                            $('#products').append('<option value='+e.id+'>'+e.product_name+'</option>');
+                        }); 
+                    }
+                });
+            }else{
+                alert("no data found");
+            }
+        });
+   });
+  </script>
+
+
+
 
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

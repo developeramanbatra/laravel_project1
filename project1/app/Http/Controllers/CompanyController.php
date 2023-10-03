@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -20,15 +22,26 @@ class CompanyController extends Controller
     
     public function store(Request $request)
     {
-        $filename= time().".".$request->company_logo->extension();      //three dots . are in there 2 for concatenate and "." this is string given for filrname e.g. time.jpg  //this time and extension is having dot bw them 
-        $request->company_logo->move(public_path('companylogo'),$filename);     //images stored in companylogo folder becoz public_path('companylogo') auto creates folder 
-
-        Company::create([
-            // 'company_name'=>$request['company_name'],    //for array 
-            'company_name'=>$request->company_name,         //for json
-            'company_logo'=>$filename,
-        ]);
-        return back()->with('success','Company registerd');
+        DB::beginTransaction();
+        try{
+            $filename= time().".".$request->company_logo->extension();      //three dots . are in there 2 for concatenate and "." this is string given for filrname e.g. time.jpg  //this time and extension is having dot bw them 
+            $request->company_logo->move(public_path('companylogo'),$filename);     //images stored in companylogo folder becoz public_path('companylogo') auto creates folder 
+    
+            Company::create([
+                // 'company_name'=>$request['company_name'],    //for array 
+                'company_name'=>$request->company_name,         //for json
+                'company_logo'=>$filename,
+            ]);
+        
+            DB::commit();
+        
+            return back()->with('success','Company registerd');
+        }
+        catch(Exception $exp)
+        {
+            DB::rollBack();
+            return back()->with('error',$exp->getMessage());
+        }
     }
 
     public function show($id)

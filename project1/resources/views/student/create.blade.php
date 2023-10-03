@@ -22,12 +22,15 @@
             <div class="alert alert-success"> {{ Session::get('success') }}  </div>
             <!-- <div class="alert alert-success"> Registered  </div> --> 
           @endif
-
+          <!-- Backend validation errors printed by this foreach loop -->
+          @foreach($errors->all() as $error)
+            <div class="alert alert-danger"> {{ $error }}  </div>
+          @endforeach
             <form method='post' action="{{ route('studentroute.store')  }}">
               @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">First Name</label>
-                <input type="text" name='firstname' class="form-control" aria-describedby="emailHelp" required>
+                <input type="text" name='firstname' class="form-control" aria-describedby="emailHelp" >
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Last Name</label>
@@ -35,11 +38,11 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Roll no</label>
-                <input type="text" name='rollno' class="form-control" aria-describedby="emailHelp" required>
+                <input type="number" name='rollno' class="form-control" aria-describedby="emailHelp" >
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Contact</label>
-                <input type="text" name='contact' class="form-control" aria-describedby="emailHelp" required>
+                <input type="number" name='contact' class="form-control" aria-describedby="emailHelp" >
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -55,6 +58,7 @@
         </div>
     </div>
 </div>
+
 
 
   <!-- Bootstrap JavaScript Libraries -->

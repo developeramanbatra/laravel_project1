@@ -29,6 +29,8 @@ Route::resource('first',student1::class);
 Route::resource('studentroute',StudentController::class);
 Route::resource('companyroute',CompanyController::class);       //controller noo import v krrna hunda before use
 Route::resource('productroute',ProductController::class);
+// ethe brackets kyu hai
+Route::get('getproducts/{companyidd}',[ProductController::class,'getproduct']);  //companyidd is just only var for storing incomping string query var value
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
