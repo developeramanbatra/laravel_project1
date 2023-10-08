@@ -91,7 +91,7 @@ class ProductController extends Controller
     {
         //
     }
-
+        //This below function is created for AJAX...Product fetching acc to company
     public function getproduct($id)
     {
         $product = Product::where('companyId',$id)->get();

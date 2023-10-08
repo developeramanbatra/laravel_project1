@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
-        public function index()
+    public function index()
     {
         $companydata=Company::get();
         return view('company.index',compact('companydata'));
