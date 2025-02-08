@@ -42,7 +42,7 @@
                         <button class="btn btn-info">Edit</button>
                       </a>
                       <!-- <a href="{{ route('studentroute.destroy',$data->id) }}"> -->
-                        <!-- anchor tag can't be used in delete in laravel -->
+                        <!-- anchor tag can't be used for delete in laravel -->
                       <form method="post" action="{{ route('studentroute.destroy',$data->id) }}">
                         @csrf
                         @method('delete')

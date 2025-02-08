@@ -74,7 +74,7 @@
       </div>
     </div>
   </div>
-  <!-- eh script file kithe available hundi aa//......CDN of Jquery -->
+  <!-- CDN of Jquery -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   <script type="text/javascript">
